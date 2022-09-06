@@ -54,20 +54,39 @@ class PostSerializer(ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        게시글 수정, 삭제 함수
-        비밀번호가 일치해야 수정, 삭제 가능
-        is_deleted = True인 경우 삭제
+        게시글 수정 함수
+        비밀번호가 일치해야 수정 가능
         """
         password = validated_data.pop('password').encode('utf-8')
         real_password = instance.password.encode('utf-8')
         if not bcrypt.checkpw(password, real_password):
             raise ValidationError("ERROR: 비밀번호가 일치하지 않습니다.")
 
-        if 'is_deleted' in validated_data.keys():
-            instance.is_deleted = True
-        else:
-            for attr, value in validated_data.items():
-                setattr(instance, attr, value)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
 
         instance.save()
         return instance
+
+
+class PostDeleteSerializer(ModelSerializer):
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+    def update(self, instance, validated_data):
+        """
+        게시글 삭제 함수
+        비밀번호가 일치해야 삭제 가능
+        삭제: is_deleted = True
+        """
+        password = validated_data.pop('password').encode('utf-8')
+        real_password = instance.password.encode('utf-8')
+        if not bcrypt.checkpw(password, real_password):
+            raise ValidationError("ERROR: 비밀번호가 일치하지 않습니다.")
+
+        instance.is_deleted = True
+
+        instance.save()
+        return instance
+

@@ -1,7 +1,7 @@
 # 게시판 CRUD API (Bulletin-Board API)
 원티드 프리온보딩 백엔드 기업 과제
 
-____
+
 
 ## 목차
 - [프로젝트 개요](#프로젝트-개요)
@@ -13,13 +13,11 @@ ____
 - [프로젝트 시작 방법](#프로젝트-시작-방법)
 
 
----
 
 <br>
 
 ## 프로젝트 개요
 
----
 
 Django Rest Framework 를 이용한 REST API 서버로
 
@@ -33,7 +31,6 @@ Django Rest Framework 를 이용한 REST API 서버로
 
 ## 과제 요구사항 분석
 
----
 
 ### 1. 게시판 CRUD
 
@@ -102,7 +99,7 @@ Django Rest Framework 를 이용한 REST API 서버로
 
 ## 프로젝트 기술 스택
 
----
+
 
 ### Backend
 <section>
@@ -128,7 +125,6 @@ Django Rest Framework 를 이용한 REST API 서버로
 
 ## 개발 기간
 
----
 
 - 2022/09/06~2022/09/07
 
@@ -138,7 +134,6 @@ Django Rest Framework 를 이용한 REST API 서버로
 
 ## ERD
 
----
 
 - made by ERDCLOUD
 
@@ -149,7 +144,6 @@ Django Rest Framework 를 이용한 REST API 서버로
 
 ## API 목록
 
----
 
 [Postman API Document](https://documenter.getpostman.com/view/19274775/VVBRynns)
 
@@ -158,7 +152,6 @@ Django Rest Framework 를 이용한 REST API 서버로
 
 ## 프로젝트 시작 방법
 
----
 
 1. 로컬에서 실행할 경우
 

@@ -14,7 +14,7 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.filter(is_deleted=False)
     serializer_class = PostSerializer
-    # pagination_class = CustomCursorPagination
+    pagination_class = CustomCursorPagination
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

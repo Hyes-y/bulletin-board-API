@@ -8,8 +8,8 @@ import re
 class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'title', 'content', 'author', 'password', 'created_at', 'updated_at')
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = ('id', 'title', 'content', 'author', 'password', 'weather', 'created_at', 'updated_at')
+        read_only_fields = ['id', 'weather', 'created_at', 'updated_at']
 
     def to_representation(self, instance):
         """

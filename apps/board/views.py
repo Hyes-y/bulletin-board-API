@@ -4,6 +4,7 @@ from rest_framework.response import Response
 # local modules
 from .models import Post
 from .serializers import PostSerializer, PostDeleteSerializer
+from .utils import get_weather_info
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -13,13 +14,25 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.filter(is_deleted=False)
     serializer_class = PostSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # 날씨 정보
+        current_weather = get_weather_info(request)
+
+        self.perform_create(serializer, current_weather)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def destroy(self, request, pk=None):
         """ DELETE 메소드는 허용하지 않습니다. """
         response = {'ERROR': 'DELETE 메소드는 허용하지 않습니다.'}
         return Response(response, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    # def perform_create(self, serializer):
-    #     serializer.save()
+    def perform_create(self, serializer, weather=None):
+        # 날씨 정보도 함께 저장
+        serializer.save(weather=weather)
 
 
 class PostDeleteViewSet(mixins.UpdateModelMixin,

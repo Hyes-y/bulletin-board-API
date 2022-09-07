@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import Post
 from .serializers import PostSerializer, PostDeleteSerializer
 from .utils import get_weather_info
+from .paginations import CustomCursorPagination
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -13,6 +14,7 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.filter(is_deleted=False)
     serializer_class = PostSerializer
+    # pagination_class = CustomCursorPagination
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -45,10 +47,12 @@ class PostDeleteViewSet(mixins.UpdateModelMixin,
 
     def update(self, request, *args, **kwargs):
         """ 게시글 삭제 처리 """
-        partial = kwargs.pop('partial', True)
-        request.data['is_deleted'] = True
+        # QueryDict 객체 수정을 위해 copy
+        data = request.data.copy()
+
+        data['is_deleted'] = True
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer = self.get_serializer(instance, data=data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 

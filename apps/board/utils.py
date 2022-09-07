@@ -1,8 +1,7 @@
 import requests
-import logging
 from django.conf import settings
 
-logger = logging.getLogger('django')
+logger = settings.LOGGER
 
 
 def get_client_ip(request):
@@ -30,7 +29,7 @@ def get_weather_info(request):
     에러 발생시 None 반환
     """
     client_info = get_client_ip(request)
-    if not client_info or client_info == '127.0.0.1':
+    if not client_info:
         client_info = 'Seoul'
 
     url = 'http://api.weatherapi.com/v1'

@@ -1,5 +1,6 @@
 import pymysql 
 import datetime
+import logging
 from pathlib import Path
 
 from my_settings import SECRET_KEY, DATABASES, WEATHER_API_KEY
@@ -16,7 +17,7 @@ DATABASES = DATABASES
 WEATHER_API_KEY = WEATHER_API_KEY
 #
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -178,7 +179,7 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'file': {
-            'level': 'ERROR',
+            'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': BASE_DIR / f'logs/{datetime.date.today().isoformat()}.log',
@@ -197,5 +198,11 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'bulletin-board': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        }
     }
 }
+
+LOGGER = logging.getLogger('bulletin-board')

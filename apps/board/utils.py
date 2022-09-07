@@ -29,7 +29,7 @@ def get_weather_info(request):
     에러 발생시 None 반환
     """
     client_info = get_client_ip(request)
-    if not client_info:
+    if not client_info or client_info == '127.0.0.1':
         client_info = 'Seoul'
 
     url = 'http://api.weatherapi.com/v1'

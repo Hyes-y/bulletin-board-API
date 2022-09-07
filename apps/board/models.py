@@ -16,7 +16,7 @@ class Post(models.Model):
     # 길이 제한이 필요하면 CharField 를 써야 한다.
     # 무얼 쓰면 좋을까?
     # content = models.TextField(verbose_name='본문')
-
+    weather = models.CharField(verbose_name='날씨', max_length=10, default=None, null=True)
     author = models.CharField(verbose_name='글쓴이', max_length=10)
     password = models.CharField(verbose_name='비밀번호', max_length=255)
     is_deleted = models.BooleanField(verbose_name="삭제 여부", default=False)

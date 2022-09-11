@@ -33,7 +33,7 @@ class PostSerializer(ModelSerializer):
             raise ValidationError("ERROR: 제목은 1글자 이상 20글자 이하 여야 합니다.")
 
         elif not (1 <= len(data['content']) <= 200):
-            raise ValidationError("ERROR: 제목은 1글자 이상 20글자 이하 여야 합니다.")
+            raise ValidationError("ERROR: 본문은 1글자 이상 200글자 이하 여야 합니다.")
 
         elif (len(data['password']) < 6) or not reg.search(data['password']):
             raise ValidationError("ERROR: 비밀번호는 6자리 이상이어야 하며, 숫자 1자리 이상 필수 포함 입니다.")
